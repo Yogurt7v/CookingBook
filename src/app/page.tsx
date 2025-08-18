@@ -1,3 +1,5 @@
+import RegistrationForm from '@/forms/register-form';
+
 export default function Home() {
-  return <h1>Test</h1>;
+  return <RegistrationForm />;
 }

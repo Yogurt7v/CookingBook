@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className="min-h-[calc(100dvh-64px)] bg-black flex flex-col items-center justify-center p-6 overflow-hidden">
+    <div className="min-h-[calc(100dvh-64px)] flex flex-col items-center justify-center p-6 overflow-hidden">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden">
         <div className="p-8 text-center">
           <div className="flex justify-center mb-6">

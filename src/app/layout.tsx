@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/ui/header';
+import { siteConfig } from './config/config';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Cooking book',
-  description: 'Рецепты для вашей кухни',
+  title: siteConfig.title,
+  description: siteConfig.description,
 };
 
 export default function RootLayout({

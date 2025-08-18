@@ -10,7 +10,7 @@ import {
 } from '@heroui/react';
 import { Logo } from './logo';
 import { usePathname } from 'next/navigation';
-import { navItems, siteConfig } from '@/app/config/config';
+import { navItems, siteConfig } from '@/config/config';
 
 export default function Header() {
   const pathName = usePathname();
@@ -42,7 +42,7 @@ export default function Header() {
         </Link>
       </NavbarBrand>
 
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="hidden sm:flex gap-6" justify="center">
         {getNavItems()}
       </NavbarContent>
 

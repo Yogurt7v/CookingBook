@@ -1,4 +1,4 @@
-import { siteConfig } from '@/app/config/config';
+import { siteConfig } from '@/config/config';
 
 export const Logo = () => {
   return (

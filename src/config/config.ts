@@ -4,7 +4,7 @@ export const siteConfig = {
 };
 
 export const navItems = [
-  { href: '/', label: 'Рецепты' },
+  { href: '/recipe', label: 'Рецепты' },
   { href: '/ingredients', label: 'Ингредиенты' },
   { href: '/about', label: 'О проекте' },
 ];

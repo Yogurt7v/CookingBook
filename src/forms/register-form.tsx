@@ -1,123 +1,89 @@
 'use client';
-
 import { Form, Input, Button } from '@heroui/react';
-import React from 'react';
-export default function RegistrationForm() {
-  const [password, setPassword] = React.useState('');
-  const [submitted, setSubmitted] = React.useState(null);
-  const [errors, setErrors] = React.useState({});
+import { useState } from 'react';
 
-  const getPasswordError = (value: any) => {
-    if (value.length < 8) {
-      return 'Пароль должен быть длиннее 8 символов';
-    }
-    if ((value.match(/[A-Z]/g) || []).length < 1) {
-      return 'Нужен хотя бы 1 заглавный символ';
-    }
-    if ((value.match(/[^a-z]/gi) || []).length < 1) {
-      return 'Нужен хотя бы 1 символ';
-    }
+interface IProps {
+  onClose: () => void;
+}
 
-    return null;
+export default function RegistrationForm({ onClose }: IProps) {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^s@]+$/;
+    return emailRegex.test(email);
   };
 
-  const onSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget));
-
-    // Custom validation checks
-    const newErrors = {};
-
-    // Password validation
-    const passwordError = getPasswordError(data.password);
-
-    if (passwordError) {
-      newErrors.password = passwordError;
-    }
-
-    // Username validation
-    if (data.name === 'admin') {
-      newErrors.name = 'Nice try! Логин уже занят';
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-
-      return;
-    }
-    console.log('data', data);
-    setErrors({});
-    setSubmitted(data);
+    console.log('Form submited', formData);
+    onClose();
   };
 
   return (
-    <Form
-      className="w-full justify-center items-center space-y-4"
-      validationErrors={errors}
-      onReset={() => setSubmitted(null)}
-      onSubmit={onSubmit}
-    >
-      <div className="flex flex-col gap-4 max-w-md">
-        <Input
-          isRequired
-          errorMessage={({ validationDetails }) => {
-            if (validationDetails.valueMissing) {
-              return 'Please enter your name';
-            }
+    <Form className="w-full max-w-xs" onSubmit={handleSubmit}>
+      <Input
+        isRequired
+        errorMessage="Please enter a valid email"
+        label="Email"
+        labelPlacement="outside"
+        name="email"
+        placeholder="Enter your email"
+        type="email"
+        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+        validate={(value) => {
+          if (!value) return 'Почта обязательна';
+          if (!validateEmail(value)) return 'Некорректный адрес';
+        }}
+      />
+      <Input
+        isRequired
+        errorMessage="Please enter a valid password"
+        label="Password"
+        labelPlacement="outside"
+        name="password"
+        placeholder="Enter your Password"
+        type="password"
+        onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+        validate={(value) => {
+          if (!value) return 'Пароль обязателен';
+          if (value !== formData.password) return 'Пароль не совпадает';
+          return null;
+        }}
+      />
+      <Input
+        isRequired
+        errorMessage="Password is not correct"
+        label="Confirm Password"
+        labelPlacement="outside"
+        name="Confirm Password"
+        placeholder="Repeat your Password"
+        type="password"
+        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+        validate={(value) => {
+          if (!value) return 'Пароль обязателен';
+          if (value.length < 8) return 'Пароль должен быть длиннее 8 символов';
+          return null;
+        }}
+      />
 
-            return errors.name;
-          }}
-          label="Name"
-          labelPlacement="outside"
-          name="name"
-          placeholder="Enter your name"
-        />
-
-        <Input
-          isRequired
-          errorMessage={({ validationDetails }) => {
-            if (validationDetails.valueMissing) {
-              return 'Please enter your email';
-            }
-            if (validationDetails.typeMismatch) {
-              return 'Please enter a valid email address';
-            }
-          }}
-          label="Email"
-          labelPlacement="outside"
-          name="email"
-          placeholder="Enter your email"
-          type="email"
-        />
-
-        <Input
-          isRequired
-          errorMessage={getPasswordError(password)}
-          isInvalid={getPasswordError(password) !== null}
-          label="Password"
-          labelPlacement="outside"
-          name="password"
-          placeholder="Enter your password"
-          type="password"
-          value={password}
-          onValueChange={setPassword}
-        />
-
-        <div className="flex gap-4">
-          <Button className="w-full" color="primary" type="submit">
-            Submit
-          </Button>
-          <Button type="reset" variant="bordered">
-            Reset
-          </Button>
-        </div>
+      <div className="flex w-[100%] gap-4 items-center pt-8 justify-center">
+        <Button variant="solid" className="hover: bg-blue-500 hover:text-white">
+          Зарегистрироваться
+        </Button>
+        <Button
+          variant="solid"
+          type="submit"
+          onPress={onClose}
+          className="hover:bg-red-500"
+        >
+          Отмена
+        </Button>
       </div>
-
-      {submitted && (
-        <div className="text-small text-default-500 mt-4">
-          Submitted data: <pre>{JSON.stringify(submitted, null, 2)}</pre>
-        </div>
-      )}
     </Form>
   );
 }

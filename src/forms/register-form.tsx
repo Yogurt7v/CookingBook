@@ -1,4 +1,5 @@
 'use client';
+import createUser from '@/actions/create-user';
 import { Form, Input, Button } from '@heroui/react';
 import { useState } from 'react';
 
@@ -20,7 +21,9 @@ export default function RegistrationForm({ onClose }: IProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submited', formData);
+
+    const user = await createUser(formData);
+    console.log('User created', user);
     onClose();
   };
 

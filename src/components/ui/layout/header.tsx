@@ -14,12 +14,17 @@ import { navItems, siteConfig } from '@/config/config';
 import RegistrationModal from '../modals/registration.modal';
 import LoginModal from '../modals/login.modal';
 import { useState } from 'react';
+import signOutFunc from '@/actions/sign-out';
 
 export default function Header() {
   const pathName = usePathname();
 
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  const handleSignOut = async () => {
+    await signOutFunc();
+  };
 
   const getNavItems = () => {
     return navItems.map((item) => {
@@ -53,6 +58,17 @@ export default function Header() {
       </NavbarContent>
 
       <NavbarContent justify="end">
+        <NavbarItem className="hidden lg:flex">
+          <Button
+            as={Link}
+            color="secondary"
+            href="#"
+            variant="flat"
+            onPress={handleSignOut}
+          >
+            Выйти
+          </Button>
+        </NavbarItem>
         <NavbarItem className="hidden lg:flex">
           <Button
             as={Link}

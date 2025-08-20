@@ -4,6 +4,9 @@ import './globals.css';
 import Header from '@/components/ui/layout/header';
 import { siteConfig } from '../config/config';
 import { layoutConfig } from '@/config/layout-config';
+import { Providers } from '@/providers/providers';
+import { auth } from '@/auth/auth';
+import { SessionProvider } from 'next-auth/react';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -20,26 +23,32 @@ export const metadata: Metadata = {
   description: siteConfig.description,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html lang="ru">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Header />
-        <main
-          className="flex flex-col  w-full items-center justify-start"
-          style={{
-            minHeight: `calc(100dvh - ${layoutConfig.headerHeight} - ${layoutConfig.footerHeight})`,
-          }}
-        >
-          {children}
-        </main>
-        <footer className="flex flex-col items-center justify-center w-full h-16 border-t border-gray-200">
-          <p>{siteConfig.description}</p>
-        </footer>
+        <Providers>
+          <SessionProvider session={session}>
+            <Header />
+            <main
+              className="flex flex-col  w-full items-center justify-start"
+              style={{
+                minHeight: `calc(100dvh - ${layoutConfig.headerHeight} - ${layoutConfig.footerHeight})`,
+              }}
+            >
+              {children}
+            </main>
+            <footer className="flex flex-col items-center justify-center w-full h-16 border-t border-gray-200">
+              <p>{siteConfig.description}</p>
+            </footer>
+          </SessionProvider>
+        </Providers>
       </body>
     </html>
   );

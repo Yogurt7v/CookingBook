@@ -43,27 +43,13 @@ export default function RegistrationForm({ onClose }: IProps) {
           if (!validateEmail(value)) return 'Некорректный адрес';
         }}
       />
-      <Input
-        isRequired
-        errorMessage="Please enter a valid password"
-        label="Password"
-        labelPlacement="outside"
-        name="password"
-        placeholder="Enter your Password"
-        type="password"
-        onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-        validate={(value) => {
-          if (!value) return 'Пароль обязателен';
-          if (value !== formData.password) return 'Пароль не совпадает';
-          return null;
-        }}
-      />
+
       <Input
         isRequired
         errorMessage="Password is not correct"
-        label="Confirm Password"
+        label="Password"
         labelPlacement="outside"
-        name="Confirm Password"
+        name="Password"
         placeholder="Repeat your Password"
         type="password"
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -73,9 +59,28 @@ export default function RegistrationForm({ onClose }: IProps) {
           return null;
         }}
       />
+      <Input
+        isRequired
+        errorMessage="Please enter a valid password"
+        label="Confirm Password"
+        labelPlacement="outside"
+        name="Confirm password"
+        placeholder="Enter your Password"
+        type="password"
+        onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+        validate={(value) => {
+          if (!value) return 'Пароль обязателен';
+          if (value !== formData.password) return 'Пароль не совпадает';
+          return null;
+        }}
+      />
 
       <div className="flex w-[100%] gap-4 items-center pt-8 justify-center">
-        <Button variant="solid" className="hover: bg-blue-500 hover:text-white">
+        <Button
+          variant="solid"
+          className="hover: bg-blue-500 hover:text-white"
+          type="submit"
+        >
           Зарегистрироваться
         </Button>
         <Button

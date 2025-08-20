@@ -8,7 +8,7 @@ interface User {
   confirmPassword: string;
 }
 
-export default async function createUser(inputData: User) {
+export default async function registerUser(inputData: User) {
   const { email, password, confirmPassword } = inputData;
 
   if (password !== confirmPassword) {

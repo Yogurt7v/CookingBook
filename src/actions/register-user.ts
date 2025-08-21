@@ -37,6 +37,7 @@ export default async function registerUser(inputData: User) {
         password: saltedPassword,
       },
     });
+    console.log(user);
     return user;
   } catch (error) {
     console.error(error);

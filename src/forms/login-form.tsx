@@ -11,7 +11,7 @@ export default function LoginForm({ onClose }: IProps) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    confirmPassword: '12345',
+    confirmPassword: '',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -40,21 +40,25 @@ export default function LoginForm({ onClose }: IProps) {
       <Input
         isRequired
         errorMessage="Password is not correct"
-        label="Confirm Password"
+        label="Password"
         labelPlacement="outside"
-        name="Confirm Password"
-        placeholder="Repeat your Password"
+        name="Password"
+        placeholder="Enter your password"
         type="password"
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
         validate={(value) => {
           if (!value) return 'Пароль обязателен';
-          if (value !== formData.confirmPassword) return 'Неправильный пароль';
+          // if (value !== formData.confirmPassword) return 'Неправильный пароль';
           return null;
         }}
       />
 
       <div className="flex w-[100%] gap-4 items-center pt-8 justify-center">
-        <Button variant="solid" className="hover: bg-blue-500 hover:text-white">
+        <Button
+          variant="solid"
+          className="hover: bg-blue-500 hover:text-white"
+          type="submit"
+        >
           Войти
         </Button>
         <Button

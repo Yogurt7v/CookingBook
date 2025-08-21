@@ -13,7 +13,7 @@ export default async function signInWithCredentials(email: string, password: str
     console.log(result);
     return result;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw error;
   }
 }

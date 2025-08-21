@@ -9,7 +9,7 @@ export default async function signOutFunc() {
     console.log(result);
     return result;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw error;
   }
 }

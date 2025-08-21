@@ -15,19 +15,22 @@ import RegistrationModal from '../modals/registration.modal';
 import LoginModal from '../modals/login.modal';
 import { useState } from 'react';
 import signOutFunc from '@/actions/sign-out';
-import { useSession } from 'next-auth/react';
+import { useAuthStore } from '@/store/auth-store';
 
 export default function Header() {
   const pathName = usePathname();
-  const { data: session, status } = useSession();
-
-  const isAuth = status === 'authenticated';
+  const { isAuth, session, status, setAuthState } = useAuthStore();
 
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const handleSignOut = async () => {
-    await signOutFunc();
+    try {
+      await signOutFunc();
+    } catch (error) {
+      console.log(error);
+    }
+    setAuthState('unauthenticated', null);
   };
 
   const getNavItems = () => {
@@ -37,9 +40,11 @@ export default function Header() {
         <NavbarItem key={item.href}>
           <Link
             href={item.href}
-            className={`${
-              isActive ? 'text-primary' : 'text-inherit'
-            } hover:text-blue-300 hover:border-blue-300 hover:duration-200`}
+            className={`
+              ${isActive ? 'text-primary' : 'text-inherit'}
+              hover:text-blue-300
+              hover:border-blue-300
+              hover:duration-200`}
           >
             {item.label}
           </Link>
@@ -56,20 +61,19 @@ export default function Header() {
           <p className="font-bold text-inherit">{siteConfig.title}</p>
         </Link>
       </NavbarBrand>
-
       <NavbarContent className="hidden sm:flex gap-6" justify="center">
         {getNavItems()}
       </NavbarContent>
-
       <NavbarContent justify="end">
         {isAuth && <p>Здравствуй, {session?.user?.email} </p>}
-        {!isAuth ? (
+        {status === 'loading' ? (
+          <p>Загрузка</p>
+        ) : !isAuth ? (
           <>
             <NavbarItem className="hidden lg:flex">
               <Button
                 as={Link}
                 color="secondary"
-                href="#"
                 variant="flat"
                 onPress={() => setIsLoginOpen(true)}
               >
@@ -80,7 +84,6 @@ export default function Header() {
               <Button
                 as={Link}
                 color="primary"
-                href="#"
                 variant="flat"
                 onPress={() => setIsRegistrationOpen(true)}
               >
@@ -90,13 +93,7 @@ export default function Header() {
           </>
         ) : (
           <NavbarItem className="hidden lg:flex">
-            <Button
-              as={Link}
-              color="secondary"
-              href="#"
-              variant="flat"
-              onPress={handleSignOut}
-            >
+            <Button as={Link} color="secondary" variant="flat" onPress={handleSignOut}>
               Выйти
             </Button>
           </NavbarItem>

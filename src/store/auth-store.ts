@@ -10,9 +10,9 @@ interface AuthState {
   setAuthState: (status: SessionStatus, session: Session | null) => void;
 }
 
-export const authStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   isAuth: false,
-  status: 'unauthenticated',
+  status: 'loading',
   session: null,
   setAuthState(status: SessionStatus, session: Session | null) {
     set({

@@ -40,6 +40,6 @@ export default async function registerUser(inputData: User) {
     console.log(user);
     return user;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }

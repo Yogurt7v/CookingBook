@@ -1,6 +1,6 @@
 'use client';
 
-import { navItems, siteConfig } from '@/config/config';
+import { navItems } from '@/config/config';
 import { usePathname } from 'next/navigation';
 
 export default function Title() {

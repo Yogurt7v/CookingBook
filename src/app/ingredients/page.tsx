@@ -1,3 +1,9 @@
+import IngredientsForm from '@/forms/ingredient-form';
+
 export default function IngredientsPage() {
-  return <h1>Ingredients</h1>;
+  return (
+    <div className="mt-8">
+      <IngredientsForm />
+    </div>
+  );
 }

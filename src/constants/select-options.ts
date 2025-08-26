@@ -1,61 +1,61 @@
 export const CATEGORY_OPTIONS = [
   {
-    value: 'vegetables',
+    value: 'VEGETABLES',
     label: 'Овощи',
   },
   {
-    value: 'fruits',
+    value: 'FRUITS',
     label: 'Фрукты',
   },
   {
-    value: 'meat',
+    value: 'MEAT',
     label: 'Мясо',
   },
   {
-    value: 'fish',
+    value: 'FISH',
     label: 'Рыба',
   },
   {
-    value: 'grains',
+    value: 'GRAINS',
     label: 'Зерновые',
   },
   {
-    value: 'dairy',
+    value: 'DAIRY',
     label: 'Молочные продукты',
   },
   {
-    value: 'bakery',
+    value: 'BAKERY',
     label: 'Выпечка',
   },
   {
-    value: 'spices',
+    value: 'SPICES',
     label: 'Специи',
   },
   {
-    value: 'other',
+    value: 'OTHER',
     label: 'Прочее',
   },
 ] as const;
 
 export const UNIT_OPTIONS = [
   {
-    value: 'kilograms',
+    value: 'KILOGRAMS',
     label: 'Килограммы',
   },
   {
-    value: 'grams',
+    value: 'GRAMS',
     label: 'Граммы',
   },
   {
-    value: 'liters',
+    value: 'LITERS',
     label: 'Литры',
   },
   {
-    value: 'milliliters',
+    value: 'MILLILITERS',
     label: 'Миллилитры',
   },
   {
-    value: 'pieces',
+    value: 'PIECES',
     label: 'Штуки',
   },
 ];

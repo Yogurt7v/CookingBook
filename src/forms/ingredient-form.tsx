@@ -1,26 +1,42 @@
 'use client';
+import CreateIngredient from '@/actions/ingredient';
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from '@/constants/select-options';
 import { Form } from '@heroui/form';
 import { Input } from '@heroui/input';
 import { Button, Select, SelectItem } from '@heroui/react';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
+
+const initialState = {
+  name: '',
+  category: '',
+  unit: '',
+  pricePerUnit: null as number | null,
+  description: '',
+};
 
 export default function IngredientsForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    category: '',
-    unit: '',
-    pricePerUnit: null as number | null,
-    description: '',
-  });
+  const [formData, setFormData] = useState(initialState);
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    console.log(formData);
+  const handleSubmit = async (formData: FormData) => {
+    startTransition(async () => {
+      const success = await CreateIngredient(formData);
+
+      if (!success) {
+        setError('Ошибка базы данных');
+        alert(error);
+      } else {
+        setError(null);
+        setFormData(initialState);
+        alert('Ингридиент успешно создан');
+      }
+    });
   };
 
   return (
-    <Form className="w-[400px]" onSubmit={handleSubmit}>
+    <Form className="w-[400px]" action={handleSubmit}>
+      {error && <p className="text-red-500 mb-4">{error}</p>}
       <Input
         isRequired
         label="Название ингридиента"
@@ -45,6 +61,7 @@ export default function IngredientsForm() {
             isRequired
             name="category"
             placeholder="Категория"
+            defaultSelectedKeys={''}
             selectedKeys={formData.category ? [formData.category] : []}
             classNames={{
               trigger: 'bg-default-100 w-full',
@@ -132,7 +149,7 @@ export default function IngredientsForm() {
       />
 
       <div className="flex w-full items-center justify-end">
-        <Button color="primary" type="submit">
+        <Button color="primary" type="submit" isLoading={isPending}>
           Добавить
         </Button>
       </div>

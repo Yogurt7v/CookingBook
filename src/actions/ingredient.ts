@@ -29,9 +29,9 @@ export async function CreateIngredient(formData: FormData) {
     return { success: true, newIngredient };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return console.log('zod error', z.ZodError);
+      console.log('error', error);
     }
-    console.log('error', error);
+    return { error: z.ZodError, success: false };
   }
 }
 
@@ -41,7 +41,7 @@ export async function getAllIngredients() {
     return { success: true, allIngredients };
   } catch (error) {
     console.log('error', error);
-    return { error: error };
+    return { error: error, success: false };
   }
 }
 
@@ -55,6 +55,6 @@ export async function deleteIngredient(id: string) {
     return { success: true, deletedIngredient };
   } catch (error) {
     console.log('error', error);
-    return { error: error };
+    return { error: error, success: false };
   }
 }

@@ -1,5 +1,5 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-2-02-17
+2-20-00
 
 проблема в NextAuth или signInWithCredentials или signOutFunc
 

@@ -1,5 +1,5 @@
 'use client';
-import CreateIngredient from '@/actions/ingredient';
+import { CreateIngredient } from '@/actions/ingredient';
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from '@/constants/select-options';
 import { Form } from '@heroui/form';
 import { Input } from '@heroui/input';

@@ -4,7 +4,7 @@ import { ingredientSchema } from '@/schema/zod';
 import prisma from '@/utils/prisma';
 import z from 'zod';
 
-export default async function CreateIngredient(formData: FormData) {
+export async function CreateIngredient(formData: FormData) {
   try {
     const data = {
       name: formData.get('name') as string,
@@ -32,5 +32,29 @@ export default async function CreateIngredient(formData: FormData) {
       return console.log('zod error', z.ZodError);
     }
     console.log('error', error);
+  }
+}
+
+export async function getAllIngredients() {
+  try {
+    const allIngredients = await prisma.ingredient.findMany();
+    return { success: true, allIngredients };
+  } catch (error) {
+    console.log('error', error);
+    return { error: error };
+  }
+}
+
+export async function deleteIngredient(id: string) {
+  try {
+    const deletedIngredient = await prisma.ingredient.delete({
+      where: {
+        id: id,
+      },
+    });
+    return { success: true, deletedIngredient };
+  } catch (error) {
+    console.log('error', error);
+    return { error: error };
   }
 }

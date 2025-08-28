@@ -28,11 +28,9 @@ export default function IngredientsForm() {
 
       if (storeError) {
         setError('Ошибка базы данных');
-        alert(storeError);
       } else {
         setError(null);
         setFormData(initialState);
-        alert('Ингридиент успешно создан');
       }
     });
   };

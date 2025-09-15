@@ -73,6 +73,7 @@ model Ingredient {
   description String?
   createdAt DateTime   @default(now()) @map("created_at")
   updatedAt DateTime   @updatedAt @map("updated_at")
+  recipes RecipeIngredient[]
 
   @@map("ingredients")
 }
@@ -95,4 +96,25 @@ enum Unit {
   LITERS
   MILLILITERS
   PIECES
+}
+
+model Recipe{
+  id String      @id @default(uuid())
+  name      String      @unique
+  description String?
+  imageUrl  String?    @map("image_url")
+  ingredients RecipeIngredient[]
+
+  @@map("recipes")
+}
+
+model RecipeIngredient{
+  id String      @id @default(uuid())
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId String
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+  ingredientId String
+  quantity Float
+
+  @@map("recipe_ingredients")
 }

@@ -1,5 +1,6 @@
 import prisma from '@/utils/prisma';
 import registerUser from './register-user';
+import { success } from 'zod';
 
 export async function getRecipes() {
   try {
@@ -42,11 +43,20 @@ export async function createRecipe(formData: FormData) {
         description,
         imageUrl,
         ingredients: {
-          create: ingredients,
+          create: ingredients.map(({ ingredientId, quantity }) => ({
+            ingredient: { connect: { id: ingredientId } },
+            quantity,
+          })),
+        },
+      },
+      include: {
+        ingredients: {
+          include: {
+            ingredient: true,
+          },
         },
       },
     });
-
     return { success: true, recipe };
   } catch (error) {
     console.log(error);

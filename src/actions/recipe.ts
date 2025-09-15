@@ -1,6 +1,5 @@
+import { IIngredient } from '@/components/ui/tabels/tabels';
 import prisma from '@/utils/prisma';
-import registerUser from './register-user';
-import { success } from 'zod';
 
 export async function getRecipes() {
   try {
@@ -126,4 +125,19 @@ export async function deleteRecipe(id: string) {
     console.log(error);
     return { success: false, error: 'Ошибка удаления рецепта' };
   }
+}
+
+export interface IRecipeIngredient {
+  id: string;
+  ingredientId: string;
+  quantity: number;
+  ingredient: IIngredient;
+}
+
+export interface IRecipe {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl?: string;
+  ingredients: IRecipeIngredient[];
 }

@@ -1,7 +1,7 @@
 import { Category, Unit } from '@/generated/prisma';
 import { useIngredientsStore } from '@/store/ingredients-store';
 
-interface IIngredient {
+export interface IIngredient {
   id: string;
   name: string;
   category: Category;

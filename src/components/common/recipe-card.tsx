@@ -3,12 +3,14 @@ import { IRecipe } from '../../actions/recipe';
 import { useTransition } from 'react';
 import { UNIT_OPTIONS } from '@/constants/select-options';
 import { Button, Card, CardBody, CardHeader, Image, Link } from '@heroui/react';
+import { useAuthStore } from '@/store/auth-store';
 
 interface RecipeCardProps {
   recipe: IRecipe;
 }
 
 export default function RecipeCard({ recipe }: RecipeCardProps) {
+  const { isAuth } = useAuthStore();
   const { removeRecipe } = useRecipeStore();
   const [isPending, startTransition] = useTransition();
 
@@ -61,26 +63,28 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
         </ul>
       </CardBody>
 
-      <div className="p-4 pt-0 flex flex-wrap gap-2 justify-end">
-        <Link href={`/recipe/${recipe.id}`}>
+      {isAuth && (
+        <div className="p-4 pt-0 flex flex-wrap gap-2 justify-end">
+          <Link href={`/recipe/${recipe.id}`}>
+            <Button
+              color="primary"
+              variant="light"
+              className="px-4 py-2 text-sm font-medium rounded-md transition-colors"
+            >
+              Редактировать
+            </Button>
+          </Link>
           <Button
-            color="primary"
+            color="danger"
             variant="light"
+            onPress={handleDelete}
+            isLoading={isPending}
             className="px-4 py-2 text-sm font-medium rounded-md transition-colors"
           >
-            Редактировать
+            Удалить
           </Button>
-        </Link>
-        <Button
-          color="danger"
-          variant="light"
-          onPress={handleDelete}
-          isLoading={isPending}
-          className="px-4 py-2 text-sm font-medium rounded-md transition-colors"
-        >
-          Удалить
-        </Button>
-      </div>
+        </div>
+      )}
     </Card>
   );
 }

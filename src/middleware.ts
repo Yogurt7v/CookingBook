@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
     secret: process.env.AUTH_SECRET, // явно передаем секрет
   });
 
-  const protectedRoutes = ['/ingredients', '/recipes/new', '/recipes/:path'];
+  const protectedRoutes = ['/ingredients', '/recipe/new', '/recipe/:path'];
 
   if (protectedRoutes.some((route) => pathname.startsWith(route.replace(':path', '')))) {
     if (!token) {
@@ -23,5 +23,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/ingredients', '/recipes/new', '/recipes/:path'],
+  matcher: ['/ingredients', '/recipe/new', '/recipe/:path'],
 };

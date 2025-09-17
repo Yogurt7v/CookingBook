@@ -28,7 +28,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
   };
 
   return (
-    <Card className="max-w-sm mx-auto bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <Card className="max-w-sm mx-auto bg-white rounded-xl shadow-md overflow-hidden hover:scale-105 transition-transform duration-300 ">
       <div className="relative h-48 w-full bg-gray-100">
         {recipe.imageUrl ? (
           <Image
@@ -44,7 +44,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
       </div>
 
       <CardHeader className="p-4 pb-2">
-        <h2 className="text-xl font-bold text-gray-800 truncate">{recipe.name}</h2>
+        <h2 className="text-xl font-bold text-gray-800 truncate ">{recipe.name}</h2>
       </CardHeader>
 
       <CardBody className="p-4 pt-0">

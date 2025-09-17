@@ -47,8 +47,6 @@ export default function RecipeForm({ initialRecipe }: RecipeFromProps) {
 
   const router = useRouter();
 
-  console.log(ingredients);
-
   const handleAddIngredientField = () => {
     setIngredientFields([
       ...ingredientFields,

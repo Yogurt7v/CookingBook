@@ -17,7 +17,6 @@ export default function LoginForm({ onClose }: IProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const res = await signInWithCredentials(formData.email, formData.password);
-    console.log('result', res);
     window.location.reload(); // костыль
     onClose();
   };

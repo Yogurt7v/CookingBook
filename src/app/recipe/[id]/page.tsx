@@ -37,4 +37,6 @@ export default function EditRecipePage() {
       </div>
     );
   }
+
+  return <p className="text-center">Загрузка рецептов...</p>;
 }

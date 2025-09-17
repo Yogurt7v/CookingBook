@@ -1,3 +1,5 @@
+'use server';
+
 import { IIngredient } from '@/components/ui/tabels/tabels';
 import prisma from '@/utils/prisma';
 

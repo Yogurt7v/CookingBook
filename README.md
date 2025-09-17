@@ -1,8 +1,6 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 3-07-17
 
-проблема в NextAuth или signInWithCredentials или signOutFunc
-
 ## Getting Started
 
 First, run the development server:

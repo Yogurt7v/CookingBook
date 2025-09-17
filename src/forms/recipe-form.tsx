@@ -78,7 +78,7 @@ export default function RecipeForm({ initialRecipe }: RecipeFromProps) {
         : await addRecipe(formData);
       if (result.success) {
         setIngredientFields([{ id: 0, ingredientId: '', quantity: null }]);
-        router.push('/');
+        router.push('/recipe');
         setFormData(initialState);
       } else {
         setError(result.error || 'Ошибка при создании рецепта');

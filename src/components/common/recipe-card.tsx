@@ -34,7 +34,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
           <Image
             src={recipe.imageUrl}
             alt="Изображение"
-            className="h-full w-full object-cover"
+            className="w-[300px] h-[200px] object-cover"
           />
         ) : (
           <div className="flex items-center justify-center h-full">

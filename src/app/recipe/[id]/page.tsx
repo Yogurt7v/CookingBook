@@ -1,4 +1,6 @@
+'use client';
 import { IRecipe } from '@/actions/recipe';
+import { layoutConfig } from '@/config/layout-config';
 import RecipeForm from '@/forms/recipe-form';
 import { useRecipeStore } from '@/store/recipe-store';
 import { useParams } from 'next/navigation';
@@ -31,7 +33,12 @@ export default function EditRecipePage() {
 
   if (recipe) {
     return (
-      <div className="container mx-auto p-4">
+      <div
+        className="container mx-auto p-4"
+        style={{
+          minHeight: `calc(100dvh - ${layoutConfig.headerHeight} - ${layoutConfig.footerHeight} - ${layoutConfig.titleHeight} + 40px) `,
+        }}
+      >
         <h1 className="text-2xl font-bold mb-4">Редактировать рецепт: {recipe.name}</h1>
         <RecipeForm initialRecipe={recipe} />
       </div>
